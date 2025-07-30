@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Create Your Account</h2>
+    <form>
+      <div class="input-group">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" required />
+      </div>
+
+      <div class="input-group">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lname" required />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required oninput="checkStrength(this.value)" />
+        <div class="strength" id="strength-bar"></div>
+        <p id="strength-text" class="strength-label">Enter your password</p>
+      </div>
+
+      <div class="input-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required />
+      </div>
+
+      <div class="input-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required />
+      </div>
+
+      <div class="input-group">
+        <label>Gender</label>
+        <div class="gender-options">
+          <label><input type="radio" name="gender" value="male" required /> Male</label>
+          <label><input type="radio" name="gender" value="female" required /> Female</label>
+          <label><input type="radio" name="gender" value="other" required /> Other</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="profile-pic">Profile Picture</label>
+        <input type="file" id="profile-pic" name="profile-pic" />
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" required />
+        <label for="terms">I agree to the Terms and Conditions</label>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    function checkStrength(password) {
+      const strengthBar = document.getElementById("strength-bar");
+      const strengthText = document.getElementById("strength-text");
+      let strength = 0;
+
+      if (password.length >= 6) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+      strengthBar.className = "strength";
+      strengthText.className = "strength-label";
+
+      if (password.length === 0) {
+        strengthText.textContent = "Enter a password";
+        return;
+      }
+
+      if (strength <= 1) {
+        strengthBar.classList.add("weak");
+        strengthText.textContent = "Weak";
+        strengthText.style.color = "#ff4d4d";
+      } else if (strength === 2 || strength === 3) {
+        strengthBar.classList.add("medium");
+        strengthText.textContent = "Medium";
+        strengthText.style.color = "#ff9800";
+      } else {
+        strengthBar.classList.add("strong");
+        strengthText.textContent = "Strong";
+        strengthText.style.color = "#28a745";
+      }
+    }
+  </script>
+</body>
+</html>
